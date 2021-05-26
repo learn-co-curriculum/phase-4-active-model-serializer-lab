@@ -36,4 +36,5 @@ group :test do
   gem 'shoulda-matchers', '~> 4.0'
 end
 
-gem "faker", "~> 2.17"
+gem 'faker', '~> 2.17'
+gem 'active_model_serializers'
