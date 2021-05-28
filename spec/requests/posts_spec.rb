@@ -23,63 +23,104 @@ RSpec.describe "Posts", type: :request do
   let!(:p1) { Post.first }
   let!(:p2) { Post.second }
 
-  describe "posts index" do
+  describe "GET /posts" do
     
     it "includes each post's title and content" do
       get "/posts"
-      expect(response_body.first["title"]).to eq p1.title
-      expect(response_body.first["content"]).to eq p1.content
-      expect(response_body.second["title"]).to eq p2.title
-      expect(response_body.second["content"]).to eq p2.content
+      expect(response.body).to include_json([
+        {
+          title: p1.title,
+          content: p1.content
+        },
+        {
+          title: p2.title,
+          content: p2.content
+        }
+      ])
     end
 
-    it "does not include the posts' id's" do
+    it "does not include the posts' ids or timestamps" do
       get "/posts"
-      expect(response_body.first["id"]).not_to be_present
-      expect(response_body.second["id"]).not_to be_present
-    end
-
-    it "does not include timestamps" do
-      get "/posts"
-      expect(response_body.first["created_at"]).not_to be_present
-      expect(response_body.first["updated_at"]).not_to be_present
+      expect(response.body).not_to include_json([
+        {
+          id: p1.id,
+          created_at: a_kind_of(String),
+          updated_at: a_kind_of(String)
+        },
+        {
+          id: p2.id,
+          created_at: a_kind_of(String),
+          updated_at: a_kind_of(String)
+        }
+      ])
     end
 
     it "includes the name of the author" do
       get "/posts"
-      expect(response_body.first["author"]["name"]).to eq p1.author.name
-      expect(response_body.second["author"]["name"]).to eq p2.author.name
+      expect(response.body).to include_json([
+        {
+          author: {
+            name: p1.author.name
+          }
+        },
+        {
+          author: {
+            name: p2.author.name
+          }
+        }
+      ])
     end
 
     it "includes each post's tags" do
       get "/posts"
-      expect(response_body.first["tags"].first["name"]).to eq p1.tags.first.name
-      expect(response_body.second["tags"].first["name"]).to eq p2.tags.first.name
+      expect(response.body).to include_json([
+        {
+          tags: [
+            {
+              name: p1.tags.first.name
+            }
+          ]
+        },
+        {
+          tags: [
+            {
+              name: p2.tags.first.name
+            }
+          ]
+        }
+      ])
     end
 
   end
   
-  describe "posts show" do
-    
+  describe "GET /posts/:id" do
     it "includes each post's title and content" do
       get "/posts/#{p1.id}"
-      expect(response_body["title"]).to eq p1.title
-      expect(response_body["content"]).to eq p1.content
+      expect(response.body).to include_json({
+        title: p1.title,
+        content: p1.content
+      })
     end
 
     it "includes the name of the author" do
       get "/posts/#{p1.id}"
-      expect(response_body["author"]["name"]).to eq p1.author.name
+      expect(response.body).to include_json({
+        author: {
+          name: p1.author.name
+        }
+      })
     end
 
     it "includes each post's tags" do
       get "/posts/#{p1.id}"
-      expect(response_body["tags"].first["name"]).to eq p1.tags.first.name
+      expect(response.body).to include_json({
+        tags: [
+          {
+            name: p1.tags.first.name
+          }
+        ]
+      })
     end
 
-  end
-
-  def response_body
-    JSON.parse(response.body)
   end
 end

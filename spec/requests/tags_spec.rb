@@ -12,29 +12,42 @@ RSpec.describe "Tags", type: :request do
   let!(:p1) { Post.first }
   let!(:t1) { p1.tags.first }
 
-  describe "tags index" do
+  describe "GET /tags" do
     
     it "includes each tag's name" do
       get "/tags"
-      expect(response_body.first["name"]).to eq t1.name
+      expect(response.body).to include_json([
+        {
+          name: t1.name
+        }
+      ])
     end
 
-    it "does not include the tag id's or timestamps" do
+    it "does not include the tag's id or timestamps" do
       get "/tags"
-      expect(response_body.first["id"]).not_to be_present
-      expect(response_body.first["created_at"]).not_to be_present
-      expect(response_body.first["updated_at"]).not_to be_present
+      expect(response.body).not_to include_json([
+        {
+          id: t1.id,
+          created_at: a_kind_of(String),
+          updated_at: a_kind_of(String)
+        }
+      ])
     end
 
     it "includes a list of the posts the tag is associated with" do
       get "/tags"
-      expect(response_body.first["posts"].first["title"]).to eq p1.title
-      expect(response_body.first["posts"].first["content"]).to eq p1.content
+      expect(response.body).to include_json([
+        {
+          posts: [
+            {
+              title: p1.title,
+              content: p1.content
+            }
+          ]
+        }
+      ])
     end
 
   end
   
-  def response_body
-    JSON.parse(response.body)
-  end
 end
