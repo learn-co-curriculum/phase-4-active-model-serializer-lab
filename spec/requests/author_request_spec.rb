@@ -65,7 +65,7 @@ RSpec.describe "Authors", type: :request do
     it "includes each post's tags" do
       get "/authors"
       expect(response_body.first["posts"].first["tags"].first["name"]).to eq p1.tags.first.name
-      expect(response_body.second["posts"].first["tags"].first["name"]).to eq p2.tags.first.name
+      expect(response_body.first["posts"].second["tags"].first["name"]).to eq p2.tags.first.name
     end
 
   end
