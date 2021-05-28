@@ -7,9 +7,9 @@ class AuthorsController < ApplicationController
   def show
     author = Author.find_by(id: params[:id])
     if author
-      render json: author, status: :found, include: ['profile', 'posts', 'posts.tags']
+      render json: author, include: ['profile', 'posts', 'posts.tags']
     else 
-      render json: {errors: "Author not found"}
+      render json: { errors: "Author not found" }
     end
   end
 
