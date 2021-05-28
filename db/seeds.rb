@@ -1,21 +1,39 @@
-3.times do
-  author = Author.create(name: Faker::Name.unique.name)
-  author.create_profile(email: Faker::Internet.email, username: Faker::Internet.username, bio: Faker::Hipster.paragraph, avatar_url: Faker::Avatar.image)
-  num_times = rand(1..5)
-  num_times.times do
-    author.posts.create(title: Faker::Book.title, content: Faker::Hipster.paragraph(sentence_count: 5, random_sentences_to_add: 4))
-  end
-end
+author1 = Author.create(
+  name: "Wilbert Green"
+)
 
-10.times do
-  Tag.create(name: Faker::Lorem.word)
-end
+author1.create_profile(
+  email: "wgreen@yahoo.com", 
+  username: "willygreen", 
+  bio: "Keytar wolf bushwick seitan mumblecore try-hard marfa.", 
+  avatar_url: "https://robohash.org/voluptasquisnihil.png?size=300x300&set=set1"
+)
 
-Post.all.each do |post|
-  num_times = rand(1..5)
-  tags = Tag.all.to_a
+author2 = Author.create(
+  name: "Sonya Wolf "
+)
 
-  num_times.times do
-    post.tags.append(tags.shuffle!.pop)
-  end
-end 
+author2.create_profile(
+  email: "swolf@msn.com", 
+  username: "sonyaw", 
+  bio: "Park bespoke diy selfies leggings shabby chic kombucha taxidermy.", 
+  avatar_url: "https://robohash.org/eosdoloremest.png?size=300x300&set=set1"
+)
+
+post1 = author1.posts.create(
+  title: "A Monstrous Regiment of Women", 
+  content: "Stumptown photo booth chartreuse next level biodiesel. Park narwhal cronut hammock helvetica."
+)
+
+post1.tags.create(
+  name: "repellat"
+)
+
+post2 = author2.posts.create(
+  title: "Antic Hay", 
+  content: "Typewriter neutra five dollar toast plaid. Polaroid tumblr put a bird on it."
+)
+
+post2.tags.create(
+  name: "qui"
+)
