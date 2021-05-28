@@ -15,7 +15,6 @@ To set up the app, run:
 ```sh
 bundle install
 rails db:migrate db:seed
-rails db:seed RAILS_ENV=test
 rails s
 ```
 
@@ -23,29 +22,31 @@ Our app includes four resources: `Author`, `Profile`, `Post`, and `Tag`, as well
 as a `post_tag` join table. All the associations have been set up, as well as
 `index` and `show` routes and actions for each of the four resources.
 
+Start by building the serializers based on the instructions below. Check your
+work in the browser as you go. Then, run `learn test` to make sure your code
+passes the tests.
+
 ## Instructions
 
 ### Author
 
 Set up a serializer for `Author` that returns the following JSON:
 
-1. The author's name
-2. The author's profile
+1. The author's `name`
+2. The author's `profile`, including only the `username`, `email`, `bio` and
+   `avatar_url`
 3. A list of the author's posts, including:
-  - the title
-  - the first 40 characters of the content
-  - a list of the associated tags
 
-### Profile
+- the `title`
+- the first 40 characters of the post's content as `short_content`, with a
+  trailing ellipsis (`...`) at the end
+- a list of the associated `tags`
 
-1. Profiles are currently provided using the `profiles` and `profiles/:id`
-   routes. Instead, we want to only provide the profile along with the author it
-   belongs to
-2. The JSON should include only `username`, `email`, `bio` and `avatar_url`
+**Note**: You will need to make serializers for the `Profile` and `Post` models to get this working.
 
 ### Posts
 
-Set up a serializer for `Post` that displays the following:
+Set up a serializer for the `Post` model that displays the following:
 
 1. The post's `title` and `content`
 2. The name of the author
