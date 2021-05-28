@@ -2,10 +2,26 @@ require 'rails_helper'
 
 RSpec.describe "Posts", type: :request do
 
-  a1 = Author.first
-  a2 = Author.second
-  p1 = Post.first
-  p2 = Post.second
+  before do 
+    author1 = Author.create(name: "Wilbert Green")
+    
+    post1 = author1.posts.create(
+      title: "A Monstrous Regiment of Women", 
+      content: "Stumptown photo booth chartreuse next level biodiesel. Park narwhal cronut hammock helvetica."
+    )
+    post1.tags.create(name: "repellat")
+    post1.tags.create(name: "qui")
+    
+    post2 = author1.posts.create(
+      title: "Clouds of Witness", 
+      content: "Selfies pickled crucifix offal. Celiac art party godard narwhal retro freegan selvage gastropub. Leggings brunch biodiesel gastropub schlitz cold-pressed truffaut. Master hoodie chia banh mi offal knausgaard yolo. Authentic selfies twee pabst tumblr. Freegan keffiyeh cliche gastropub. Yr vinyl cliche synth freegan forage. Biodiesel food truck fixie lo-fi 8-bit drinking neutra."
+    )
+    post2.tags.create(name: "qui")
+    post2.tags.create(name: "facere")
+  end
+
+  let!(:p1) { Post.first }
+  let!(:p2) { Post.second }
 
   describe "posts index" do
     

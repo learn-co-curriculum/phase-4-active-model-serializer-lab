@@ -1,13 +1,12 @@
-
 require 'rails_helper'
 
 RSpec.describe "route specs", type: :routing do
-  it 'should not have profiles route' do
-    expect(get: '/profiles').to_not be_routable
+  it 'does not have profiles route' do
+    expect(get: '/profiles').not_to be_routable
   end
 
-  it 'should not have profile route' do
-    expect(get: '/profiles/1').to_not be_routable
+  it 'does not have profile route' do
+    expect(get: '/profiles/1').not_to be_routable
   end
 
 end

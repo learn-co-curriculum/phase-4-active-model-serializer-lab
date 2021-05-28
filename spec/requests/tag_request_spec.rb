@@ -2,8 +2,15 @@ require 'rails_helper'
 
 RSpec.describe "Tags", type: :request do
 
-  p1 = Post.first
-  t1 = p1.tags.first
+  before do
+    author1 = Author.create(name: "Wilbert Green")
+    post1 = author1.posts.create(title: "A Monstrous Regiment of Women", content: "Stumptown photo booth chartreuse next level biodiesel. Park narwhal cronut hammock helvetica.")
+    post1.tags.create(name: "repellat")
+    post1.tags.create(name: "qui")
+  end
+
+  let!(:p1) { Post.first }
+  let!(:t1) { p1.tags.first }
 
   describe "tags index" do
     

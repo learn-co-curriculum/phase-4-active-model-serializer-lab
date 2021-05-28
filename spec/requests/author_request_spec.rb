@@ -2,10 +2,42 @@ require 'rails_helper'
 
 RSpec.describe "Authors", type: :request do
 
-  a1 = Author.first
-  a2 = Author.second
-  p1 = Post.first
-  p2 = Post.second
+  before do 
+    author1 = Author.create(name: "Wilbert Green")
+    author1.create_profile(
+      email: "wgreen@kshlerin.co", 
+      username: "willygreen", 
+      bio: "Keytar wolf bushwick seitan mumblecore try-hard marfa.", 
+      avatar_url: "https://robohash.org/voluptasquisnihil.png?size=300x300&set=set1"
+    )
+    
+    author2 = Author.create(name: "Sonya Wolf ")
+    author2.create_profile(
+      email: "swolf@keeling.name", 
+      username: "sonyaw", 
+      bio: "Park bespoke diy selfies leggings shabby chic kombucha taxidermy.", 
+      avatar_url: "https://robohash.org/eosdoloremest.png?size=300x300&set=set1"
+    )
+    
+    post1 = author1.posts.create(
+      title: "A Monstrous Regiment of Women", 
+      content: "Stumptown photo booth chartreuse next level biodiesel. Park narwhal cronut hammock helvetica."
+    )
+    post1.tags.create(name: "repellat")
+    post1.tags.create(name: "qui")
+    
+    post2 = author1.posts.create(
+      title: "Clouds of Witness", 
+      content: "Selfies pickled crucifix offal. Celiac art party godard narwhal retro freegan selvage gastropub. Leggings brunch biodiesel gastropub schlitz cold-pressed truffaut. Master hoodie chia banh mi offal knausgaard yolo. Authentic selfies twee pabst tumblr. Freegan keffiyeh cliche gastropub. Yr vinyl cliche synth freegan forage. Biodiesel food truck fixie lo-fi 8-bit drinking neutra."
+    )
+    post2.tags.create(name: "qui")
+    post2.tags.create(name: "facere")
+  end
+
+  let!(:a1) { Author.first }
+  let!(:a2) { Author.second }
+  let!(:p1) { Post.first }
+  let!(:p2) { Post.second }
 
   describe "authors index" do
     
