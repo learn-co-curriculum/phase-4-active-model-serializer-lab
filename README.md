@@ -32,20 +32,21 @@ passes the tests.
 
 Set up a serializer for `Author` that returns the following JSON:
 
-1. The author's name
-2. The author's profile, including only the `username`, `email`, `bio` and
+1. The author's `name`
+2. The author's `profile`, including only the `username`, `email`, `bio` and
    `avatar_url`
 3. A list of the author's posts, including:
 
-- the title
-- the first 40 characters of the content
-- a list of the associated tags
+- the `title`
+- the first 40 characters of the post's content as `short_content`, with a
+  trailing ellipsis (`...`) at the end
+- a list of the associated `tags`
 
 **Note**: You will need to make serializers for the `Profile` and `Post` models to get this working.
 
 ### Posts
 
-Set up a serializer for `Post` that displays the following:
+Set up a serializer for the `Post` model that displays the following:
 
 1. The post's `title` and `content`
 2. The name of the author
