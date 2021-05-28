@@ -7,9 +7,9 @@ class TagsController < ApplicationController
   def show
     tag = Tag.find_by(id: params[:id])
     if tag
-      render json: tag, status: :found 
+      render json: tag
     else 
-      render json: {errors: "Tag not found"}
+      render json: { errors: "Tag not found" }
     end
   end
 
