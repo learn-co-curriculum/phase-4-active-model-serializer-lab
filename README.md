@@ -12,10 +12,10 @@ For this lab, we're going to return to our Blog application and update it to use
 
 To set up the app, run:
 
-```sh
-bundle install
-rails db:migrate db:seed
-rails s
+```console
+$ bundle install
+$ rails db:migrate db:seed
+$ rails s
 ```
 
 Our app includes four resources: `Author`, `Profile`, `Post`, and `Tag`, as well
@@ -42,7 +42,8 @@ Set up a serializer for `Author` that returns the following JSON:
   trailing ellipsis (`...`) at the end
 - a list of the associated `tags`
 
-**Note**: You will need to make serializers for the `Profile` and `Post` models to get this working.
+**Note**: You will need to make serializers for the `Profile` and `Post` models
+to get this working.
 
 ### Posts
 
