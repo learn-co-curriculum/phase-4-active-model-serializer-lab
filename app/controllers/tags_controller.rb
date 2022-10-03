@@ -3,12 +3,12 @@ class TagsController < ApplicationController
 
   def index
     tags = Tag.all
-    render json: tags
+    render json: tags, include: :posts
   end
 
   def show
     tag = Tag.find(params[:id])
-    render json: tag
+    render json: tag, include: :posts
   end
 
   private
